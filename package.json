@@ -1,8 +1,8 @@
 {
-    "name": "ForceCaller",
+    "name": "forcecaller",
     "displayName": "ForceCaller",
     "description": "Call Salesforce SOAP API",
-    "version": "0.0.1",
+    "version": "0.0.5",
     "publisher": "ArquimidezMora",
     "engines": {
         "vscode": "^1.0.0"
@@ -19,14 +19,11 @@
             "command": "ForceCaller.connect",
             "title": "Salesforce Connect"
         },{
-            "command": "ForceCaller.getInfo",
-            "title": "Salesforce GetInfo"
-        },{
-            "command": "ForceCaller.getFile",
-            "title": "Salesforce GetFile"
-        },{
             "command": "ForceCaller.saveFile",
             "title": "Salesforce SaveFile"
+        },{
+            "command": "ForceCaller.createContainer",
+            "title": "Salesforce CreateContainer"
         }],
         "keybindings": [
 			{
@@ -34,12 +31,12 @@
 				"key": "ctrl+alt+c"
 			},
             {
-				"command": "ForceCaller.getFile",
-				"key": "ctrl+alt+g"
-			},
-            {
 				"command": "ForceCaller.saveFile",
 				"key": "shift+s"
+			},
+            {
+				"command": "ForceCaller.createContainer",
+				"key": "shift+c"
 			}
         ]
     },
