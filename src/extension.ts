@@ -14,9 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
     var output = vscode.window.createOutputChannel("Information");
-    var active = vscode.window.activeTextEditor;
+    var window = vscode.window;
     var workspace = vscode.workspace;
-    var Force = new ForceCaller(output, active, workspace);
+    var Force = new ForceCaller(output, window, workspace);
     let disposable = vscode.commands.registerCommand('ForceCaller.connect', () => {
         // The code you place here will be executed every time your command is executed
         if(Force.org == ''){
@@ -43,16 +43,16 @@ export function activate(context: vscode.ExtensionContext) {
  */
 class ForceCaller {
     private output;
-    private active;
+    private window;
     private salesforce;
     private checkStatusInterval;
     private workspace;
     private metadataContainer;
     public org = '';
 
-    constructor(output, active, workspace) {
+    constructor(output, window, workspace) {
         this.output = output;
-        this.active = active;
+        this.window = window;
         this.workspace = workspace;
         var setting = workspace.getConfiguration("ForceCaller.setting");
         this.salesforce = new jsforce.Connection({
@@ -76,9 +76,9 @@ class ForceCaller {
     {
         var self = this;
         self.write("Org: " + self.org);
-        console.log(self.active);
-        console.log(self.active.document.uri.path);
-        var fileName = self.active.document.uri.path.split('/');
+        console.log(self.window.activeTextEditor);
+        console.log(self.window.activeTextEditor.document.uri.path);
+        var fileName = self.window.activeTextEditor.document.uri.path.split('/');
         fileName = fileName[fileName.length - 1];
         var nameSplit = fileName.split('.');
         fileName = nameSplit[0];
@@ -105,9 +105,9 @@ class ForceCaller {
         var setting = self.workspace.getConfiguration("ForceCaller.setting");
         var metadataContainerId = setting.get('MetadataContainer');
         self.write("Org: " + self.org + '\n');
-        console.log(self.active);
-        var newBody = self.active.document.getText();
-        var fileName = self.active.document.uri.path.split('/');
+        console.log(self.window.activeTextEditor);
+        var newBody = self.window.activeTextEditor.document.getText();
+        var fileName = self.window.activeTextEditor.document.uri.path.split('/');
         fileName = fileName[fileName.length - 1];
         console.log(fileName);
         var nameSplit = fileName.split('.');
